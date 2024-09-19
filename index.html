@@ -424,4 +424,26 @@
             {
                 text: "Você examina o tesouro e descobre que é uma ilusão. Fim da história.",
                 options: []
-            }
+            }];
+                let currentStoryIndex = 0;
+
+        function renderStory() {
+            const currentStory = story[currentStoryIndex];
+            storyElement.textContent = currentStory.text;
+            optionsElement.innerHTML = '';
+
+            currentStory.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option.text;
+                button.onclick = () => {
+                    currentStoryIndex = option.next;
+                    renderStory();
+                };
+                optionsElement.appendChild(button);
+            });
+        }
+
+        renderStory(); // Inicia a aventura
+    </script>
+</body>
+</html>
