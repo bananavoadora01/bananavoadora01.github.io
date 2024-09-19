@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aventura na Floresta</title>
+    <title>A Grande Aventura na Floresta</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(to right, #74ebd5, #acb6e5);
-            color: #333;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
             padding: 20px;
             text-align: center;
-            transition: background 0.5s;
         }
         h1 {
             margin-bottom: 20px;
             font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
         .option {
             margin: 10px 0;
@@ -35,80 +33,395 @@
         button:hover {
             background-color: #ff4c4c;
         }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
     </style>
 </head>
 <body>
 
-    <h1>Aventura na Floresta</h1>
+    <h1>A Grande Aventura na Floresta</h1>
     <div id="story"></div>
     <div id="options"></div>
-    <img id="image" src="" alt="Cenário da história" />
 
     <script>
         const storyElement = document.getElementById('story');
         const optionsElement = document.getElementById('options');
-        const imageElement = document.getElementById('image');
 
         let story = [
             {
-                text: "Você é um explorador que acorda em uma floresta mágica. O que você faz?",
+                text: "Você é um jovem aventureiro em uma floresta mágica. Ao explorar, você encontra um caminho dividido. O que você faz?",
                 options: [
-                    { text: "Explorar a floresta", next: 1 },
-                    { text: "Construir um abrigo", next: 2 }
-                ],
-                image: "https://images.unsplash.com/photo-1521522552171-64c9e1c37c94"
+                    { text: "Seguir o caminho da esquerda", next: 1 },
+                    { text: "Seguir o caminho da direita", next: 2 },
+                    { text: "Escalar a colina próxima", next: 3 },
+                    { text: "Voltar para a vila", next: 4 }
+                ]
             },
             {
-                text: "Enquanto explora, você encontra uma caverna misteriosa. O que você faz?",
+                text: "O caminho da esquerda leva a uma clareira cheia de flores. Você vê um lago no centro. O que você faz?",
                 options: [
-                    { text: "Entrar na caverna", next: 3 },
-                    { text: "Ignorar e continuar explorando", next: 4 }
-                ],
-                image: "https://images.unsplash.com/photo-1517446761101-d6b9f11dce79"
+                    { text: "Mergulhar no lago", next: 5 },
+                    { text: "Explorar as flores", next: 6 },
+                    { text: "Construir um abrigo", next: 7 },
+                    { text: "Voltar", next: 0 }
+                ]
             },
             {
-                text: "Você constrói um abrigo, mas ouve sons estranhos à noite. Fim da história.",
-                options: [],
-                image: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"
+                text: "O caminho da direita leva a uma caverna escura. Você ouve sons estranhos. O que você faz?",
+                options: [
+                    { text: "Entrar na caverna", next: 8 },
+                    { text: "Tentar iluminar a caverna", next: 9 },
+                    { text: "Voltar", next: 0 },
+                    { text: "Cercar a entrada", next: 10 }
+                ]
             },
             {
-                text: "Dentro da caverna, você encontra um tesouro perdido! Fim da história.",
-                options: [],
-                image: "https://images.unsplash.com/photo-1530522333827-f9d96f1cf8b1"
+                text: "Ao escalar a colina, você avista um castelo ao longe. O que você faz?",
+                options: [
+                    { text: "Descer e ir ao castelo", next: 11 },
+                    { text: "Explorar a área ao redor", next: 12 },
+                    { text: "Ficar e descansar", next: 13 },
+                    { text: "Voltar", next: 0 }
+                ]
             },
             {
-                text: "Você descobre uma clareira cheia de criaturas mágicas. Fim da história.",
-                options: [],
-                image: "https://images.unsplash.com/photo-1477745957650-4d4e09c4b5d4"
+                text: "Você volta para a vila e conta histórias sobre a floresta. Fim da aventura.",
+                options: []
+            },
+            {
+                text: "Você mergulha no lago e descobre um portal para outro mundo. O que você faz?",
+                options: [
+                    { text: "Entrar no portal", next: 14 },
+                    { text: "Voltar para a superfície", next: 15 },
+                    { text: "Explorar o fundo do lago", next: 16 },
+                    { text: "Nadar até a margem", next: 17 }
+                ]
+            },
+            {
+                text: "Ao explorar as flores, você encontra uma planta mágica. O que você faz?",
+                options: [
+                    { text: "Pegar a planta", next: 18 },
+                    { text: "Cheirar a planta", next: 19 },
+                    { text: "Ignorar a planta", next: 20 },
+                    { text: "Voltar", next: 1 }
+                ]
+            },
+            {
+                text: "Você constrói um abrigo, mas à noite escuta sons estranhos. O que você faz?",
+                options: [
+                    { text: "Sair e investigar", next: 21 },
+                    { text: "Permanecer no abrigo", next: 22 },
+                    { text: "Tentar dormir", next: 23 },
+                    { text: "Voltar para a vila", next: 4 }
+                ]
+            },
+            {
+                text: "Você entra na caverna e encontra um tesouro. O que você faz?",
+                options: [
+                    { text: "Pegar o tesouro", next: 24 },
+                    { text: "Deixar o tesouro e voltar", next: 25 },
+                    { text: "Explorar mais a caverna", next: 26 },
+                    { text: "Gritar por ajuda", next: 27 }
+                ]
+            },
+            {
+                text: "Você tenta iluminar a caverna e descobre criaturas mágicas. O que você faz?",
+                options: [
+                    { text: "Conversar com as criaturas", next: 28 },
+                    { text: "Fugir", next: 29 },
+                    { text: "Tentar capturá-las", next: 30 },
+                    { text: "Desistir e sair", next: 31 }
+                ]
+            },
+            {
+                text: "Você decide cercar a entrada e encontra um velho sábio. O que você faz?",
+                options: [
+                    { text: "Perguntar sobre a floresta", next: 32 },
+                    { text: "Ignorar e entrar", next: 33 },
+                    { text: "Convidar o sábio para te acompanhar", next: 34 },
+                    { text: "Sair correndo", next: 35 }
+                ]
+            },
+            {
+                text: "Você desce em direção ao castelo e descobre que está cheio de segredos. O que você faz?",
+                options: [
+                    { text: "Entrar no castelo", next: 36 },
+                    { text: "Explorar os arredores", next: 37 },
+                    { text: "Esperar e observar", next: 38 },
+                    { text: "Voltar", next: 3 }
+                ]
+            },
+            {
+                text: "Ao explorar a área ao redor, você encontra um mapa antigo. O que você faz?",
+                options: [
+                    { text: "Estudar o mapa", next: 39 },
+                    { text: "Levar o mapa para o castelo", next: 36 },
+                    { text: "Mostrar o mapa para alguém na vila", next: 4 },
+                    { text: "Quebrar o mapa", next: 40 }
+                ]
+            },
+            {
+                text: "Você decide descansar, mas começa a sonhar com a floresta. Fim da aventura.",
+                options: []
+            },
+            {
+                text: "Você entra no portal e se encontra em um mundo novo. O que você faz?",
+                options: [
+                    { text: "Explorar o novo mundo", next: 41 },
+                    { text: "Tentar voltar para casa", next: 42 },
+                    { text: "Procurar outros aventureiros", next: 43 },
+                    { text: "Estudar o ambiente ao redor", next: 44 }
+                ]
+            },
+            {
+                text: "Você volta para a superfície e se sente aliviado. O que você faz agora?",
+                options: [
+                    { text: "Contar para alguém sobre o portal", next: 4 },
+                    { text: "Explorar mais o lago", next: 17 },
+                    { text: "Voltar para a floresta", next: 1 },
+                    { text: "Ficar na margem e descansar", next: 15 }
+                ]
+            },
+            {
+                text: "Você explora o fundo do lago e encontra criaturas aquáticas. O que você faz?",
+                options: [
+                    { text: "Interagir com as criaturas", next: 45 },
+                    { text: "Sair do lago", next: 17 },
+                    { text: "Tentar capturar uma criatura", next: 46 },
+                    { text: "Nadar em direção à superfície", next: 15 }
+                ]
+            },
+            {
+                text: "Você nada até a margem e se sente satisfeito. Fim da aventura.",
+                options: []
+            },
+            {
+                text: "Você pega a planta e descobre que é uma erva curativa. O que você faz?",
+                options: [
+                    { text: "Usar a planta", next: 47 },
+                    { text: "Vender a planta", next: 48 },
+                    { text: "Dar a planta a alguém da vila", next: 4 },
+                    ]
+            },
+                        {
+                text: "Você encontra uma árvore antiga que parece mágica. O que você faz?",
+                options: [
+                    { text: "Tocar na árvore", next: 63 },
+                    { text: "Escalar a árvore", next: 64 },
+                    { text: "Fazer um pedido", next: 65 },
+                    { text: "Ignorar a árvore e seguir em frente", next: 1 }
+                ]
+            },
+            {
+                text: "Ao tocar na árvore, você recebe uma visão do futuro. O que você faz?",
+                options: [
+                    { text: "Seguir a visão", next: 66 },
+                    { text: "Contar para alguém", next: 4 },
+                    { text: "Voltar para a clareira", next: 1 },
+                    { text: "Tentar mudar o futuro", next: 67 }
+                ]
+            },
+            {
+                text: "Você escala a árvore e descobre um ninho de criaturas mágicas. O que você faz?",
+                options: [
+                    { text: "Pegar um ovo", next: 68 },
+                    { text: "Observar as criaturas", next: 69 },
+                    { text: "Descer rapidamente", next: 70 },
+                    { text: "Cantar para acalmar as criaturas", next: 71 }
+                ]
+            },
+            {
+                text: "Você faz um pedido e uma voz responde: 'Seu desejo será concedido'. O que você pede?",
+                options: [
+                    { text: "Poder mágico", next: 72 },
+                    { text: "Riquezas", next: 73 },
+                    { text: "A paz na floresta", next: 74 },
+                    { text: "Um amigo fiel", next: 75 }
+                ]
+            },
+            {
+                text: "Você segue a visão e encontra um caminho oculto. O que você faz?",
+                options: [
+                    { text: "Seguir o caminho", next: 76 },
+                    { text: "Voltar", next: 1 },
+                    { text: "Anotar a visão", next: 4 },
+                    { text: "Desistir e descansar", next: 13 }
+                ]
+            },
+            {
+                text: "Você tenta mudar o futuro e acaba causando um evento inesperado. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pega um ovo e o leva com você. O que você faz a seguir?",
+                options: [
+                    { text: "Incubar o ovo", next: 77 },
+                    { text: "Mostrar a alguém", next: 4 },
+                    { text: "Deixar o ovo em um local seguro", next: 78 },
+                    { text: "Comer o ovo", next: 79 }
+                ]
+            },
+            {
+                text: "Você observa as criaturas e aprende sobre sua magia. O que você faz?",
+                options: [
+                    { text: "Procurar aprender mais", next: 80 },
+                    { text: "Tentar fazer amizade", next: 81 },
+                    { text: "Voltar para a floresta", next: 1 },
+                    { text: "Pedir ajuda às criaturas", next: 82 }
+                ]
+            },
+            {
+                text: "Você desce rapidamente e escapa de um ataque das criaturas. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você canta e as criaturas se acalmam. O que você faz a seguir?",
+                options: [
+                    { text: "Perguntar sobre a floresta", next: 83 },
+                    { text: "Cantar mais", next: 84 },
+                    { text: "Deixar a árvore", next: 1 },
+                    { text: "Tentar levar uma criatura com você", next: 85 }
+                ]
+            },
+            {
+                text: "Você pede poder mágico e é transportado para uma dimensão de feitiços. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pede riquezas e descobre que a verdadeira riqueza é o conhecimento. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pede paz na floresta e se torna um guardião. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pede um amigo fiel e encontra um companheiro leal. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você segue o caminho oculto e encontra uma entrada secreta para um templo. O que você faz?",
+                options: [
+                    { text: "Entrar no templo", next: 86 },
+                    { text: "Examinar a entrada", next: 87 },
+                    { text: "Voltar e explorar a floresta", next: 1 },
+                    { text: "Esperar por alguém", next: 4 }
+                ]
+            },
+            {
+                text: "Você descobre que a mudança causou um caos na floresta. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você incuba o ovo e um filhote mágico nasce. O que você faz?",
+                options: [
+                    { text: "Cuidar do filhote", next: 88 },
+                    { text: "Libertar o filhote", next: 89 },
+                    { text: "Mostrar a alguém", next: 4 },
+                    { text: "Ensinar o filhote a voar", next: 90 }
+                ]
+            },
+            {
+                text: "Você deixa o ovo em um local seguro e volta para a aventura. O que você faz a seguir?",
+                options: [
+                    { text: "Explorar mais a floresta", next: 1 },
+                    { text: "Voltar à clareira", next: 5 },
+                    { text: "Ir para o castelo", next: 36 },
+                    { text: "Encontrar outros aventureiros", next: 4 }
+                ]
+            },
+            {
+                text: "Você come o ovo e ganha poderes temporários. O que você faz?",
+                options: [
+                    { text: "Usar os poderes para explorar", next: 91 },
+                    { text: "Testar os poderes em um desafio", next: 92 },
+                    { text: "Voltar à normalidade", next: 93 },
+                    { text: "Usar os poderes para ajudar alguém", next: 4 }
+                ]
+            },
+            {
+                text: "Você procura aprender mais e descobre um segredo da floresta. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você tenta fazer amizade e é aceito pelas criaturas. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pede ajuda e descobre um aliado inesperado. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pergunta sobre a floresta e recebe sabedoria das criaturas. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você canta mais e as criaturas dançam ao seu redor. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você tenta levar uma criatura com você, mas falha. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você entra no templo e descobre um antigo artefato. O que você faz?",
+                options: [
+                    { text: "Pegar o artefato", next: 94 },
+                    { text: "Examinar o templo", next: 95 },
+                    { text: "Oferecer algo ao templo", next: 96 },
+                    { text: "Sair rapidamente", next: 4 }
+                ]
+            },
+            {
+                text: "Você examina a entrada e encontra um mural que conta a história da floresta. O que você faz?",
+                options: [
+                    { text: "Estudar o mural", next: 97 },
+                    { text: "Desenhar o mural", next: 98 },
+                    { text: "Voltar e entrar", next: 86 },
+                    { text: "Ignorar e seguir em frente", next: 1 }
+                ]
+            },
+            {
+                text: "Você descobre que o templo é sagrado e faz parte de um antigo culto. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você pega o artefato e é transportado para outra dimensão. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você examina o templo e encontra pistas sobre tesouros escondidos. O que você faz?",
+                options: [
+                    { text: "Seguir as pistas", next: 99 },
+                    { text: "Voltar", next: 1 },
+                    { text: "Contar a alguém sobre as pistas", next: 4 },
+                    { text: "Desistir e sair do templo", next: 4 }
+                ]
+            },
+            {
+                text: "Você oferece algo ao templo e recebe um presente em troca. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você estuda o mural e descobre segredos antigos da floresta. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você desenha o mural e se torna famoso como artista. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você segue as pistas e encontra um tesouro escondido. O que você faz?",
+                options: [
+                    { text: "Pegar o tesouro", next: 100 },
+                    { text: "Deixar o tesouro e seguir em frente", next: 1 },
+                    { text: "Contar a alguém sobre o tesouro", next: 4 },
+                    { text: "Examinar o tesouro mais de perto", next: 101 }
+                ]
+            },
+            {
+                text: "Você pega o tesouro e se torna rico, mas perde a magia da floresta. Fim da história.",
+                options: []
+            },
+            {
+                text: "Você examina o tesouro e descobre que é uma ilusão. Fim da história.",
+                options: []
             }
-        ];
-
-        let currentScene = 0;
-
-        function renderScene(sceneIndex) {
-            const scene = story[sceneIndex];
-            storyElement.textContent = scene.text;
-            optionsElement.innerHTML = '';
-            imageElement.src = scene.image;
-
-            scene.options.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option.text;
-                button.classList.add('option');
-                button.onclick = () => renderScene(option.next);
-                optionsElement.appendChild(button);
-            });
-        }
-
-        renderScene(currentScene);
-    </script>
-
-</body>
-</html>
